@@ -17,4 +17,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+use App\Http\Controllers\EntrepriseController;
+
+Route::get('/entreprises', [EntrepriseController::class, 'index']); // Récupérer toutes les entreprises
+Route::get('/entreprises/{id}', [EntrepriseController::class, 'show']); // Récupérer une entreprise spécifique par l'id
+Route::get('/entreprises/siren/{siren}', [EntrepriseController::class, 'searchBySiren']); // Récupérer une entreprise spécifique par le siren
+
