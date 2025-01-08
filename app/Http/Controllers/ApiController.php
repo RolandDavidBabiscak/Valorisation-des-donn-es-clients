@@ -19,12 +19,13 @@ class ApiController extends Controller
         $apiKey = env('API_SOCIETE_COM');
 
         // Endpoint de l'API
-        $endpoint = 'https://api.societe.com/apisite/v1/endpoint'; // Remplacez par le bon endpoint
+        $endpoint = 'https://api.societe.com/api/v1/infoclient';
 
         // Paramètres à envoyer à l'API
         $params = [
-            'param1' => $request->input('param1'), // Paramètre reçu depuis la requête
-            'param2' => $request->input('param2'), // Autres paramètres nécessaires
+            'siren' => $request->input('siren'),
+            'siretsiege' => $request->input('siret_siege'),
+            'deno' => $request->input('nom'),
         ];
 
         try {
