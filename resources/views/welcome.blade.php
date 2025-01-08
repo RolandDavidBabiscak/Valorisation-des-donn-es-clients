@@ -43,7 +43,7 @@
                             </div>
                             <button 
                                 @click="searchCompanies()"
-                                class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+                                class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors"
                             >
                                 Rechercher
                             </button>
@@ -142,21 +142,48 @@
                     loading: false,
 
                     async searchCompanies() {
+                        // Vérifier que la requête a au moins 2 caractères
                         if (this.query.length < 2) {
-                            this.results = [];
+                            this.results = [];  
                             return;
                         }
 
                         this.loading = true;
                         try {
-                            const response = await fetch(`/api/companies/search?query=${encodeURIComponent(this.query)}`);
+                            // Configuration des en-têtes de la requête
+                            const myHeaders = new Headers();
+                            myHeaders.append("Accept", "application/json");
+                            myHeaders.append("X-Authorization", "socapi " + '12c8d1f7aa10cd13e988fee4c922f0d9');
+
+                            // Construction de l'URL dynamique avec le SIREN saisi par l'utilisateur
+                            const apiUrl = `https://api.societe.com/api/v1/entreprise/${this.query}/exist`;
+
+                            // Options de la requête
+                            const requestOptions = {
+                                method: "GET",
+                                headers: myHeaders,
+                                redirect: "follow"
+                            };
+
+                            // Exécution de la requête
+                            const response = await fetch(apiUrl, requestOptions);
+
+                            // Vérification de la réponse
+                            if (!response.ok) {
+                                throw new Error(`Erreur HTTP: ${response.status}`);
+                            }
+
+                            // Traitement de la réponse en JSON
                             const data = await response.json();
+
+                            // Affectation des résultats à `this.results`
                             this.results = data;
+
                         } catch (error) {
                             console.error('Erreur lors de la recherche:', error);
-                            this.results = [];
+                            this.results = []; // Réinitialiser les résultats en cas d'erreur
                         } finally {
-                            this.loading = false;
+                            this.loading = false; // Désactiver l'indicateur de chargement
                         }
                     }
                 }
