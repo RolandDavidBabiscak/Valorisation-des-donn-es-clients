@@ -15,18 +15,6 @@ class EntrepriseController extends Controller
         return response()->json($entreprises);
     }
 
-    public function show($id)
-    {
-        // Récupère une entreprise spécifique
-        $entreprise = Entreprise::find($id);
-
-        if ($entreprise) {
-            return response()->json($entreprise);
-        } else {
-            return response()->json(['message' => 'Entreprise non trouvée'], 404);
-        }
-    }
-
     public function store(Request $request)
     {
             $request->validate([
@@ -42,5 +30,16 @@ class EntrepriseController extends Controller
             $entreprise->save();
 
             return view('welcome');
+        }
+
+        public function search(Request $request)
+        {
+            $query = $request->input('query');
+            $entreprises = Entreprise::where('NOM', 'like', "%$query%")
+                ->orWhere('SIREN', '=', $query)
+                ->orWhere('SIRET_SIEGE', '=', $query)
+                ->get();
+        
+            return response()->json($entreprises);
         }
 }
