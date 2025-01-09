@@ -4,14 +4,19 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Recherche d'Entreprises</title>
+        <!-- Chargement des polices Google Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <!-- Chargement des ressources CSS et JS via Vite -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <!-- Chargement d'Alpine.js et jQuery -->
         <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
     <body class="font-sans antialiased bg-gray-50 dark:bg-black dark:text-white/50">
+        <!-- Container principal avec flex pour footer sticky -->
         <div class="h-screen flex flex-col">
+            <!-- En-tête de l'application -->
             <header class="bg-white dark:bg-zinc-900 shadow">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                     <div class="flex justify-between items-center">
@@ -22,14 +27,18 @@
                 </div>
             </header>
 
+            <!-- Corps principal de l'application -->
             <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" x-data="search()">
+                <!-- Section de recherche -->
                 <div class="max-w-3xl mx-auto mb-12">
                     <h2 class="text-2xl font-semibold text-center mb-8 text-gray-900 dark:text-white">
                         Trouvez toutes les informations sur les entreprises françaises
                     </h2>
 
+                    <!-- Barre de recherche et bouton -->
                     <div class="space-y-4">
                         <div class="flex gap-4">
+                            <!-- Input de recherche avec debounce pour limiter les appels API -->
                             <div class="flex-1">
                                 <input 
                                     type="text" 
@@ -39,6 +48,7 @@
                                     class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-purple-500 dark:focus:ring-blue-400"
                                 >
                             </div>
+                            <!-- Bouton de recherche -->
                             <button 
                                 @click="searchCompanies()"
                                 class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors"
@@ -47,15 +57,20 @@
                             </button>
                         </div>
 
+                        <!-- Zone d'affichage des résultats -->
                         <div x-show="query.length > 0" class="mt-8 d-flex flex-column items-center">
+                            <!-- Indicateur de chargement -->
                             <div x-show="loading" class="flex justify-center py-4">
                                 <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
                             </div>
 
+                            <!-- Liste des résultats -->
                             <div x-show="results.length > 0" class="space-y-4">
                                 <template x-for="company in results" :key="company.SIREN">
+                                    <!-- Carte d'entreprise -->
                                     <div class="bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-lg">
                                         <h3 x-text="company.NOM" class="text-xl font-semibold text-gray-900 dark:text-white mb-4"></h3>
+                                        <!-- Informations SIREN et SIRET -->
                                         <div class="grid grid-cols-2 gap-4 m-2">
                                             <div>
                                                 <span class="text-gray-500">SIREN:</span>
@@ -66,10 +81,12 @@
                                                 <span x-text="company.SIRET_SIEGE" class="ml-2"></span>
                                             </div>
                                         </div>
+                                        <!-- Section commentaires et notation -->
                                         <div class="flex justify-between items-center mt-5">
                                             <button @click="company.showComments = !company.showComments" class="text-blue-600 hover:underline">
                                                 Voir les commentaires
                                             </button>
+                                            <!-- Système de notation en étoiles -->
                                             <div id="rating-container" class="flex space-x-2">
                                                 <template x-for="star in [1, 2, 3, 4, 5]" :key="star">
                                                     <span class="star" :class="{'text-yellow-500': star <= company.rating}" @click="rateCompany(company, star)">
@@ -78,6 +95,7 @@
                                                 </template>
                                             </div>
                                         </div>
+                                        <!-- Zone d'affichage des commentaires -->
                                         <div x-show="company.showComments" class="mt-4">
                                             <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Commentaires:</h4>
                                             <ul>
@@ -92,12 +110,14 @@
                                 </template>
                             </div>
 
+                            <!-- Formulaire d'ajout d'entreprise si aucun résultat -->
                             <div x-show="!loading && results.length === 0" class="text-center py-8">
                                 <div class="mb-6 text-gray-500">Aucun résultat trouvé pour votre recherche</div>
                                 <h2 class="m-6">Voulez vous enregistrer cette entreprise ?</h2>
                                 <div class="flex justify-center flex-column items-center">
                                     <form action="store" method="post" target="_blank" class="ms-4 flex gap-4">
                                         @csrf
+                                        <!-- Champs de saisie pour nouvelle entreprise -->
                                         <input type="number" name="SIREN" x-model="query" class="px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400" placeholder="SIREN">
                                         <input type="text" name="NOM" class="px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400" placeholder="Nom de l'entreprise">
                                         <input type="number" name="SIRET_SIEGE" class="px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400" placeholder="SIRET">
@@ -109,9 +129,9 @@
                     </div>
                 </div>
 
-                <!-- Grille de fonctionnalités -->
+                <!-- Grille des fonctionnalités (visible uniquement sans résultats) -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12" x-show="!results.length">
-                    <!-- Exemple de fonctionnalité (Recherche complète) -->
+                    <!-- Carte Recherche Complète -->
                     <div class="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6">
                         <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
                             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -121,7 +141,7 @@
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Recherche Complète</h3>
                         <p class="text-gray-600 dark:text-gray-400">Accédez à toutes les informations légales des entreprises.</p>
                     </div>
-                    <!-- Exemple de fonctionnalité (Données Fiables) -->
+                    <!-- Carte Données Fiables -->
                     <div class="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6">
                         <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
                             <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,8 +151,7 @@
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Données Fiables</h3>
                         <p class="text-gray-600 dark:text-gray-400">Information mise à jour quotidiennement depuis societe.com.</p>
                     </div>
-
-                    <!-- Exemple de fonctionnalité (API Performante ) -->
+                    <!-- Carte API Performante -->
                     <div class="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6">
                         <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
                             <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -145,6 +164,7 @@
                 </div>  
             </main>
 
+            <!-- Pied de page -->
             <footer class="bg-white dark:bg-zinc-900 border-t border-gray-200 dark:border-gray-800">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <div class="text-center text-gray-600 dark:text-gray-400">

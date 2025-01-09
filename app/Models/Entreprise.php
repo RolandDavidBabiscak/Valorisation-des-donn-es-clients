@@ -28,7 +28,6 @@ class Entreprise extends Model
         'SIRET_SIEGE',
     ];
 
-    // Modèle Entreprise
     public function commentaires()
     {
         return $this->hasMany(Commentaire::class, 'ENTREPRISE_ID');
