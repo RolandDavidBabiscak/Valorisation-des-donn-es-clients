@@ -55,7 +55,7 @@
                                 <template x-for="company in results" :key="company.SIREN">
                                     <div class="bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-lg">
                                         <h3 x-text="company.NOM" class="text-xl font-semibold text-gray-900 dark:text-white mb-4"></h3>
-                                        <div class="grid grid-cols-2 gap-4">
+                                        <div class="grid grid-cols-2 gap-4 m-2">
                                             <div>
                                                 <span class="text-gray-500">SIREN:</span>
                                                 <span x-text="company.SIREN" class="ml-2"></span>
@@ -65,6 +65,8 @@
                                                 <span x-text="company.SIRET_SIEGE" class="ml-2"></span>
                                             </div>
                                         </div>
+
+                                        <a href="#" class="font-medium text-purple-600 dark:text-purple-500 hover:underline">Voir les commentaires</a>
                                     </div>
                                 </template>
                             </div>
