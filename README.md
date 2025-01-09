@@ -121,6 +121,29 @@ Ce projet a été développé avec l'aide des outils d'IA suivants :
 - ✅ Interface visuelle des notes
 - ⚠️ Logique partielle pour les notes et commentaires
 
+## ➕ Améliorations Possibles
+  
+Gestion des comptes clients :
+Création, modification et suppression de comptes utilisateurs avec différents rôles (administrateur, commercial, etc.).
+Gestion des droits d'accès aux fonctionnalités en fonction des rôles.
+Possibilité pour les utilisateurs de gérer leur profil.
+
+Amélioration du système de notation :
+Affichage de la moyenne des notes par entreprise.
+
+Gestion des erreurs :
+Mise en place de messages d'erreurs plus explicites pour guider l'utilisateur en cas de problème (par exemple, lors de la soumission d'un formulaire, en cas d'erreur de connexion à la base de données, etc.).
+Gestion des erreurs de validation des formulaires.
+
+Pagination :
+Ajouter une pagination pour les listes d'entreprises, de commentaires et de notes afin d'améliorer les performances et l'expérience utilisateur lorsque le nombre d'enregistrements est important.
+
+Recherche avancée :
+Permettre la recherche par plusieurs critères combinés (par exemple, par nom et par secteur d'activité).
+
+Export des données :
+Offrir la possibilité d'exporter les données des entreprises au format CSV ou Excel.
+
 ## 📫 Contact
 
 Pour toute question ou suggestion, n'hésitez pas à ouvrir une issue sur le dépôt Git.
