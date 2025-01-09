@@ -1,6 +1,7 @@
 # Valorisation des Données Clients
 
 Application web permettant aux commerciaux de rechercher et gérer des informations sur les entreprises clientes, développée avec Laravel, Breeze, Tailwind CSS et Alpine.js.
+J'ai pris le choix de ces technos car ce sont celle que je maitrise le mieux, et que je trouve facile d'utilisation.
 
 ## 🚀 Fonctionnalités
 
