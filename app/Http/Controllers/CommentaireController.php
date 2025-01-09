@@ -3,27 +3,39 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Commentaire;
+use App\Models\Entreprise;
 
 class CommentaireController extends Controller
 {
-    public function store(Request $request)
+    public function index($id)
     {
-        // Validation des données d'entrée
-        $request->validate([
-            'COMMENTAIRE' => 'required|string|max:255',
-            'ENTREPRISE_ID' => 'required|integer|exists:ENTREPRISE,ENTREPRISE_ID',
-        ]);
+                // Récupérer l'entreprise avec ses commentaires
+            $entreprise = Entreprise::with('commentaires')->findOrFail($id);
 
-        try {
-            // Création du commentaire
-            Commentaire::create([
-                'COMMENTAIRE' => $request->input('COMMENTAIRE'),
-                'ENTREPRISE_ID' => $request->input('ENTREPRISE_ID'),
+            // Passer les données à la vue
+            return view('commentaires.index', [
+                'commentaires' => $entreprise->commentaires,
+                'entreprise' => $entreprise,
+                'id' => $id
             ]);
 
-            return redirect()->back()->with('success', 'Commentaire ajouté avec succès.');
-        } catch (\Exception) {
-            return redirect()->back()->with('error', 'Erreur lors de l\'ajout du commentaire.');
-        }
     }
+    
+    
+    
+
+    public function store(Request $request, $id)
+    {
+        $request->validate([
+            'TEXTE' => 'required|string|max:1000',
+        ]);
+
+        Commentaire::create([
+            'ENTREPRISE_ID' => $id,
+            'TEXTE' => $request->TEXTE,
+        ]);
+
+        return redirect()->route('commentaire.index', ['id' => $id])->with('success', 'Commentaire ajouté avec succès.');
+    }
+
 }

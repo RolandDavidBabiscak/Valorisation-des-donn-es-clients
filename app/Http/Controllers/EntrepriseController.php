@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Entreprise;
 use Illuminate\Http\Request;
 use App\Models\Commentaire;
+use App\Http\Controllers\ModelNotFoundException;
 
 
 class EntrepriseController extends Controller
@@ -37,19 +38,20 @@ class EntrepriseController extends Controller
         public function search(Request $request)
         {
             $query = $request->input('query');
-            $entreprises = Entreprise::where('NOM', 'like', "%$query%")
+            $entreprises = Entreprise::query()
+                ->where('NOM', 'like', "%$query%")
                 ->orWhere('SIREN', '=', $query)
                 ->orWhere('SIRET_SIEGE', '=', $query)
                 ->get();
         
-            return response()->json($entreprises);
+            return response()->json($entreprises, 200);
         }
+        
     
         public function show($id)
         {
-            $entreprise = Entreprise::findOrFail($id);
-            $commentaires = Commentaire::where('ENTREPRISE_ID', $id)->get();
-
-            return view('entreprise', compact('entreprise', 'commentaires'));
+            $entreprise = Entreprise::where('SIREN', $id)->with('comments')->firstOrFail();
+            return view('entreprise', compact('entreprise'));
         }
+    
     }
