@@ -6,6 +6,7 @@ use App\Models\Entreprise;
 use Illuminate\Http\Request;
 use App\Models\Commentaire;
 use App\Http\Controllers\ModelNotFoundException;
+use App\Models\Note;
 
 
 class EntrepriseController extends Controller
@@ -52,6 +53,17 @@ class EntrepriseController extends Controller
         {
             $entreprise = Entreprise::where('SIREN', $id)->with('comments')->firstOrFail();
             return view('entreprise', compact('entreprise'));
+        }
+
+        public function noterEntreprise(Request $request, $siren)
+        {
+            $entreprise = Entreprise::where('SIREN', $siren)->firstOrFail();
+            $note = Note::updateOrCreate(
+                ['ENTREPRISE_ID' => $entreprise->id],
+                ['NOTE' => $request->input('rating')]
+            );
+        
+            return response()->json(['success' => true]);
         }
     
     }

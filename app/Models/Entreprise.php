@@ -34,4 +34,9 @@ class Entreprise extends Model
         return $this->hasMany(Commentaire::class, 'ENTREPRISE_ID');
     }
 
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
+
 }
