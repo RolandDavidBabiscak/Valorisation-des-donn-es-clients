@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EntrepriseController;
+use App\Http\Controllers\CommentaireController;
 
 
 Route::get('/', function () {
@@ -23,3 +24,6 @@ Route::get('/entreprises', [EntrepriseController::class, 'index']); // Récupér
 Route::get('/entreprises/{id}', [EntrepriseController::class, 'show']); // Récupérer une entreprise spécifique par l'id
 Route::get('/entreprises/siren/{siren}', [EntrepriseController::class, 'searchBySiren']); // Récupérer une entreprise spécifique par le siren
 Route::post('/store', [EntrepriseController::class, 'store'])->name('entreprise.store'); // Ajouter une entreprise
+Route::post('/store', [CommentaireController::class, 'store'])->name('commentaire.store'); // Ajouter un commentaire
+Route::get('/show', [CommentaireController::class, 'show'])->name('public.show'); // Afficher un commentaire spécifique
+Route::get('/entreprise/{id}', [EntrepriseController::class, 'show'])->name('entreprise.show'); // Afficher une entreprise spécifique

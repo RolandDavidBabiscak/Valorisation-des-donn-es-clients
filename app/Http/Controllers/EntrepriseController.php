@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Entreprise;
 use Illuminate\Http\Request;
+use App\Models\Commentaire;
+
 
 class EntrepriseController extends Controller
 {
@@ -42,4 +44,12 @@ class EntrepriseController extends Controller
         
             return response()->json($entreprises);
         }
-}
+    
+        public function show($id)
+        {
+            $entreprise = Entreprise::findOrFail($id);
+            $commentaires = Commentaire::where('ENTREPRISE_ID', $id)->get();
+
+            return view('entreprise', compact('entreprise', 'commentaires'));
+        }
+    }

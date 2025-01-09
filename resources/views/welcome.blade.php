@@ -67,7 +67,7 @@
                                             </div>
                                         </div>
                                         <div class="flex justify-between items-center mt-5">
-                                            <a href="#" class="font-medium text-purple-600 dark:text-purple-500 hover:underline">Voir les commentaires</a>
+                                            <a href="/entreprise" class="font-medium text-purple-600 dark:text-purple-500 hover:underline">Voir les commentaires</a>
                                             <div id="rating-container" class="flex space-x-2">
                                                 <span class="star" data-value="1">&#9733;</span>
                                                 <span class="star" data-value="2">&#9733;</span>
