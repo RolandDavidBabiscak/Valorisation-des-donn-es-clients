@@ -8,6 +8,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
     <body class="font-sans antialiased bg-gray-50 dark:bg-black dark:text-white/50">
         <div class="h-screen flex flex-col">
@@ -65,8 +66,16 @@
                                                 <span x-text="company.SIRET_SIEGE" class="ml-2"></span>
                                             </div>
                                         </div>
-
-                                        <a href="#" class="font-medium text-purple-600 dark:text-purple-500 hover:underline">Voir les commentaires</a>
+                                        <div class="flex justify-between items-center mt-5">
+                                            <a href="#" class="font-medium text-purple-600 dark:text-purple-500 hover:underline">Voir les commentaires</a>
+                                            <div id="rating-container" class="flex space-x-2">
+                                                <span class="star" data-value="1">&#9733;</span>
+                                                <span class="star" data-value="2">&#9733;</span>
+                                                <span class="star" data-value="3">&#9733;</span>
+                                                <span class="star" data-value="4">&#9733;</span>
+                                                <span class="star" data-value="5">&#9733;</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </template>
                             </div>
@@ -160,6 +169,7 @@
                     }
                 };
             }
+
         </script>
     </body>
 </html>
