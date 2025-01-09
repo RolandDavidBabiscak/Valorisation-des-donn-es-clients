@@ -88,7 +88,7 @@
                                         @csrf
                                         <input type="number" name="SIREN" x-model="query" class="px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400" placeholder="SIREN">
                                         <input type="text" name="NOM" class="px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400" placeholder="Nom de l'entreprise">
-                                        <input type="text" name="SIRET_SIEGE" class="px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400" placeholder="SIRET">
+                                        <input type="number" name="SIRET_SIEGE" class="px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400" placeholder="SIRET">
                                         <button type="submit" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors">Enregistrer</button>
                                     </form>
                                 </div>  

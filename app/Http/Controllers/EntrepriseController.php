@@ -19,7 +19,7 @@ class EntrepriseController extends Controller
     {
             $request->validate([
                 'NOM' => 'required|string|max:255',
-                'SIREN' => 'required|string|max:14|unique:ENTREPRISE,SIREN',
+                'SIREN' => 'required|string|max:9|unique:ENTREPRISE,SIREN',
                 'SIRET_SIEGE' => 'required|string|max:14|unique:ENTREPRISE,SIRET_SIEGE',
             ]);
     
