@@ -13,17 +13,16 @@ class Entreprise extends Model
     protected $primaryKey = 'ENTREPRISE_ID';
 
     // Indique que la clé primaire n'est pas incrémentale
-    public $incrementing = false;
+    public $incrementing = true;
 
     // Types des clés primaires
-    protected $keyType = 'decimal';
+    protected $keyType = 'integer';
 
     // Désactiver les timestamps
     public $timestamps = false;
 
     // Colonnes autorisées pour les insertions/modifications
     protected $fillable = [
-        'ENTREPRISE_ID',
         'NOM',
         'SIREN',
         'SIRET_SIEGE',

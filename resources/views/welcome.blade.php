@@ -46,13 +46,13 @@
                             </button>
                         </div>
 
-                        <div x-show="query.length > 0" class="mt-8">
+                        <div x-show="query.length > 0" class="mt-8 d-flex flex-column items-center">
                             <div x-show="loading" class="flex justify-center py-4">
                                 <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
                             </div>
 
                             <div x-show="results.length > 0" class="space-y-4">
-                                <template x-for="company in results" :key="company.ENTREPRISE_ID">
+                                <template x-for="company in results" :key="company.SIRET">
                                     <div class="bg-white dark:bg-zinc-900 p-6 rounded-xl shadow-lg">
                                         <h3 x-text="company.NOM" class="text-xl font-semibold text-gray-900 dark:text-white mb-4"></h3>
                                         <div class="grid grid-cols-2 gap-4">
@@ -69,14 +69,25 @@
                                 </template>
                             </div>
 
-                            <div x-show="!loading && results.length === 0" class="text-center py-8 text-gray-500">
-                                Aucun résultat trouvé pour votre recherche
+                            <div x-show="!loading && results.length === 0" class="text-center py-8">
+                                <div class="mb-6 text-gray-500">Aucun résultat trouvé pour votre recherche</div>
+                                    <h2 class="m-6">Voulez vous enregistrer cette entreprise ?</h2>
+                                    <div class="flex justify-center flex-column items-center">
+                                        <form action="store" method="post" target="_blank" class="ms-4 flex gap-4">
+                                            @csrf
+                                            <input type="number" name="SIREN" x-model="query" class="px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400" placeholder="SIREN">
+                                            <input type="text" name="NOM" class="px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400" placeholder="Nom de l'entreprise">
+                                            <input type="text" name="SIRET_SIEGE" class="px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400" placeholder="SIRET">
+                                            <button type="submit" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors">Enregistrer</button>
+                                        </form>
+                                    </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                                <!-- Grille de fonctionnalités -->
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12" x-show="!results.length">
+
+                    <!-- Grille de fonctionnalités -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12" x-show="!results.length">
                     <!-- Exemple de fonctionnalité (Recherche complète) -->
                     <div class="bg-white dark:bg-zinc-900 rounded-xl shadow-lg p-6">
                         <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EntrepriseController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,9 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-use App\Http\Controllers\EntrepriseController;
-
 Route::get('/entreprises', [EntrepriseController::class, 'index']); // Récupérer toutes les entreprises
 Route::get('/entreprises/{id}', [EntrepriseController::class, 'show']); // Récupérer une entreprise spécifique par l'id
 Route::get('/entreprises/siren/{siren}', [EntrepriseController::class, 'searchBySiren']); // Récupérer une entreprise spécifique par le siren
-
+Route::post('/store', [EntrepriseController::class, 'store'])->name('entreprise.store'); // Ajouter une entreprise

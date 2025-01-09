@@ -20,22 +20,27 @@ class EntrepriseController extends Controller
         // Récupère une entreprise spécifique
         $entreprise = Entreprise::find($id);
 
-        if (!$entreprise) {
+        if ($entreprise) {
+            return response()->json($entreprise);
+        } else {
             return response()->json(['message' => 'Entreprise non trouvée'], 404);
         }
-
-        return response()->json($entreprise);
     }
 
-    public function searchBySiren($siren)
+    public function store(Request $request)
     {
-        $entreprises = Entreprise::where('SIREN', $siren)->get();
+            $request->validate([
+                'NOM' => 'required|string|max:255',
+                'SIREN' => 'required|string|max:14|unique:ENTREPRISE,SIREN',
+                'SIRET_SIEGE' => 'required|string|max:14|unique:ENTREPRISE,SIRET_SIEGE',
+            ]);
+    
+            $entreprise = new Entreprise();
+            $entreprise->NOM = $request->input('NOM');
+            $entreprise->SIREN = $request->input('SIREN');
+            $entreprise->SIRET_SIEGE = $request->input('SIRET_SIEGE');
+            $entreprise->save();
 
-        if ($entreprises->isEmpty()) {
-            return response()->json(['message' => 'Aucune entreprise trouvée'], 404);
+            return view('welcome');
         }
-
-        return response()->json($entreprises);
-    }
-
 }
